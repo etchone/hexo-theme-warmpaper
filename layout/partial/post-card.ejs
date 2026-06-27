@@ -14,11 +14,41 @@
   <div class="post-card-excerpt">
     <% if (post.excerpt) { %>
       <%- post.excerpt %>
-    <% } else { %>
-      <p><%- strip_html(post.content).substring(0, 200) %>...</p>
+    <% } else {
+      function excerptShortest(text, charLimit = 200, lineLimit = 4) {
+        function getFirstLines(text, maxLines) {
+          const lineTagRe = /<\/p>|<br\s*\/?>/gi;
+          let match;
+          let lineCount = 0;
+
+          while ((match = lineTagRe.exec(text)) !== null) {
+            lineCount++;
+            if (lineCount === maxLines) {
+              return text.slice(0, match.index);
+            }
+          }
+          // 总行数不超过 maxLines，直接返回全文
+          return text;
+        }
+
+        const hrMatch = text.match(/<hr[^>]*?>/);
+        if (hrMatch) {
+          text = text.substring(0, hrMatch.index);
+        }
+
+        const byChars = text.slice(0, charLimit);
+        const byLines = getFirstLines(text, lineLimit);
+
+        // 返回长度更短的那个
+        const shorter = byChars.length <= byLines.length ? byChars : byLines;
+        const suffix = (!hrMatch && strip_html(shorter) == strip_html(text)) ? '' : '<p>...</p>';
+        return shorter + suffix;
+      }
+      %>
+      <p><%- excerptShortest(post.content, theme.excerptCharLimit||200, theme.excerptLineLimit||4) %></p>
     <% } %>
   </div>
-  <a class="read-more" href="<%- url_for(post.path) %>"><%= theme.excerpt_link || 'Read More' %> &rarr;</a>
+  <a class="read-more" href="<%- url_for(post.path) %>"><%= theme.excerpt_link || 'Read More' %></a>
   <% if (post.tags && post.tags.length) { %>
     <div class="post-card-tags">
       <% post.tags.each(function(tag){ %>

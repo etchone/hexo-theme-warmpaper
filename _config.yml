@@ -4,21 +4,21 @@
 menu:
   Home: /
   Archives: /archives
-  Tags: /tags
-  Categories: /categories
+  # Tags: /tags
+  # Categories: /categories
   About: /about
 
 # Table of Contents (right sidebar on post pages)
 toc:
-  enable: true
+  enable: false
   max_depth: 3
   min_depth: 2
   list_number: false
 
 # Waline comment
 waline:
-  enable: false
-  serverURL: 'https://your-server-url'
+  enable: true
+  serverURL: 'https://waline.etchone.ink'
 
 # Profile (shown on homepage above post list)
 profile:
@@ -26,17 +26,17 @@ profile:
   description: ""
   links:
     - name: GitHub
-      url: https://github.com/finch-xu/
+      url: https://github.com/etchone/
       icon: github
-    # - name: Email
-    #   url: mailto:your@email.com
-    #   icon: email
-    - name: pidan.dev
-      url: https://pidan.dev
+    - name: Email
+      url: mailto:etchone@qq.com
+      icon: email
+    - name: Waystone
+      url: https://etchone.ink
       icon: website
-    - name: 雨云VPS
-      url: https://www.rainyun.com/ODA1MzUy_?s=pidan.dev
-      icon: website
+    # - name: 雨云VPS
+    #   url: https://www.rainyun.com/ODA1MzUy_?s=pidan.dev
+    #   icon: website
     # - name: Twitter
     #   url: https://twitter.com/yourname
     #   icon: twitter
@@ -45,7 +45,7 @@ profile:
     #   icon: rss
 
 # Post excerpt
-excerpt_link: Read More
+excerpt_link: '展开 >'
 
 # Footer
-copyright: ""
+copyright: "Hello, World!"
